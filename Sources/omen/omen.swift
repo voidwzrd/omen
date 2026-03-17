@@ -10,6 +10,8 @@ func runOllama(request: String) -> String {
     process.standardOutput = pipe
     process.standardError = pipe
 
+    process.environment = ["TERM": "dumb"]
+
     do {
         try process.run()
         process.waitUntilExit()
