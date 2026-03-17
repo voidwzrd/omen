@@ -1,0 +1,44 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:omen}",
+            "name": "Debug omen",
+            "target": "omen",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug omen"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:omen}",
+            "name": "Release omen",
+            "target": "omen",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release omen"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:omen}",
+            "name": "Debug swarm",
+            "target": "swarm",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug swarm"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:omen}",
+            "name": "Release swarm",
+            "target": "swarm",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release swarm"
+        }
+    ]
+}
