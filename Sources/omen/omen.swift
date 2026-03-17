@@ -66,31 +66,39 @@ struct Omen: ParsableCommand {
     static let configuration: CommandConfiguration = CommandConfiguration(
         commandName: "omen",
         abstract: "Terminal app that stages changes with meaningful commit messages",
-        version: "0.0.1"
+        version: "0.0.2"
     )
     func run() throws {
         runGit(args: ["add", "-A"])
 
+        func cleanOutput(_ text: String) -> String {
+            return text.replacingOccurrences(
+                of: #"\x1B\[[0-9;?]*[A-Za-z]"#,
+                with: "",
+                options: .regularExpression
+            )
+        }
+
         let gitDiff = runGitDiff()
         let commitRequestPrefix = "Write a concise git commit message based this git diff:"
         let ollamaRequestParameters =
-        """
-        Rules:
-        - Output ONLY the commit message
-        - No explanations
-        - No quotes
-        - No formatting
-        - Use conventional commit style
-        """
+            """
+            Rules:
+            - Output ONLY the commit message
+            - No explanations
+            - No quotes
+            - No formatting
+            - Use conventional commit style
+            """
 
         let ollamaRequest =
-        """
-        \(commitRequestPrefix)
-        \(gitDiff)
-        \(ollamaRequestParameters)
-        """
+            """
+            \(commitRequestPrefix)
+            \(gitDiff)
+            \(ollamaRequestParameters)
+            """
 
         let ollamaResponse = runOllama(request: ollamaRequest)
-        runGit(args: ["commit", "-m", ollamaResponse])
+        runGit(args: ["commit", "-m", cleanOutput(ollamaResponse)])
     }
 }
