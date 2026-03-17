@@ -1,7 +1,7 @@
 import ArgumentParser
 import Foundation
 
-func runOllama(request: String) -> Any {
+func runOllama(request: String) -> String {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/local/bin/ollama")
     process.arguments = ["run", "llama3", request]
@@ -89,6 +89,6 @@ struct Omen: ParsableCommand {
         """
 
         let ollamaResponse = runOllama(request: ollamaRequest)
-        runGit(args: ["commit", "-m", "\(ollamaResponse)"])
+        runGit(args: ["commit", "-m", ollamaResponse])
     }
 }
